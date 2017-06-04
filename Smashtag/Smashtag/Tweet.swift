@@ -108,9 +108,41 @@ class Tweet: NSManagedObject {
         } catch {
             throw error
         }
-
-        
+    }
+  //  ----- Remove Tweets ----
+    // MARK: Constants
+    
+    private struct Constants {
+        static let TimeToRemoveOldTweets  = -60*60*24*7
     }
     
+    class func removeOldTweets(context: NSManagedObjectContext) {            
+                let request: NSFetchRequest<Tweet> = Tweet.fetchRequest()
+                let weekAgo = Date(timeIntervalSinceNow: TimeInterval(Constants.TimeToRemoveOldTweets))
+                request.predicate = NSPredicate(format: "created < %@", weekAgo as CVarArg)
+                
+                let results = try? context.fetch(request)
+                if let count = results?.count{
+                    print ("Убрано \(count) Tweets")
+                }
+                if let tweets = results  {
+                    for tweet in tweets {
+                        context.delete(tweet)
+                    }
+                }
+                    try? context.save()
+    }
+
+    override public func prepareForDeletion() {
+        if let mentionsSet = mentions as? Set<Mention>, mentionsSet.count > 0  {
+            for mention in mentionsSet {
+            mention.removeFromTweets(self)
+            mention.count =  Int32((mention.count) - 1)
+                if  (mention.tweets?.filter ({ !($0 as AnyObject).isDeleted }).isEmpty)! {
+                    managedObjectContext?.delete(mention)
+                }
+            }
+        }
+    }
 }
 

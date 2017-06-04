@@ -28,7 +28,7 @@ class Mention: NSManagedObject {
                 return matches[0]
             } else {
                 let mention = Mention (context: context)
-                mention.count = 1
+                mention.count = 0
                 mention.keyword = keyword.lowercased()
                 mention.searchTerm = searchTerm
                 mention.type = type
