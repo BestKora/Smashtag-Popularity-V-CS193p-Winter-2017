@@ -109,6 +109,7 @@ class Tweet: NSManagedObject {
             throw error
         }
     }
+    
   //  ----- Remove Tweets ----
     // MARK: Constants
     
@@ -118,7 +119,8 @@ class Tweet: NSManagedObject {
     
     class func removeOldTweets(context: NSManagedObjectContext) {            
                 let request: NSFetchRequest<Tweet> = Tweet.fetchRequest()
-                let weekAgo = Date(timeIntervalSinceNow: TimeInterval(Constants.TimeToRemoveOldTweets))
+                let weekAgo = Date(timeIntervalSinceNow:
+                                   TimeInterval(Constants.TimeToRemoveOldTweets))
                 request.predicate = NSPredicate(format: "created < %@", weekAgo as CVarArg)
                 
                 let results = try? context.fetch(request)
