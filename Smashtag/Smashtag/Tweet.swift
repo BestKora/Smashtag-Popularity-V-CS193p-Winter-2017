@@ -11,7 +11,7 @@ import CoreData
 import Twitter
 
 class Tweet: NSManagedObject {
-    class func findOrCreateTweet(matching twitterInfo: Twitter.Tweet, with searchTerm: String,
+    class func findOrCreateTweet(matching twitterInfo: Twitter.Tweet,
                                  in context: NSManagedObjectContext) throws -> Tweet
     {
         let request: NSFetchRequest<Tweet> = Tweet.fetchRequest()
@@ -42,8 +42,7 @@ class Tweet: NSManagedObject {
                                     in context: NSManagedObjectContext) throws -> Tweet
     {
         do {
-            let tweet = try findOrCreateTweet(matching: twitterInfo, with: searchTerm,
-                                              in: context)
+            let tweet = try findOrCreateTweet(matching: twitterInfo,in: context)
             let hashtags = twitterInfo.hashtags
             for hashtag in hashtags{
                 _ = try? Mention.checkMention(for: tweet,

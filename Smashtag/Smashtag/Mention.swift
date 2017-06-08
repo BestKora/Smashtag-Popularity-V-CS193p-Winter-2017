@@ -11,8 +11,7 @@ import CoreData
 import Twitter
 
 class Mention: NSManagedObject {
-    static func findOrCreateMention(for tweet: Tweet,
-                                    withKeyword keyword: String,
+    static func findOrCreateMention(withKeyword keyword: String,
                                     andType type: String,
                                     andTerm searchTerm: String,
                                     in context: NSManagedObjectContext) throws -> Mention
@@ -47,8 +46,7 @@ class Mention: NSManagedObject {
                                     in context: NSManagedObjectContext) throws -> Mention
     {
         do {
-            let mention = try findOrCreateMention(for: tweet,
-                                               withKeyword:keyword,
+            let mention = try findOrCreateMention(withKeyword:keyword,
                                                andType: type,
                                                andTerm: searchTerm,
                                                in: context)
