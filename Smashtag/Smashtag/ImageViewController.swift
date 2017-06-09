@@ -68,7 +68,7 @@ class ImageViewController: UIViewController
     // мы можем делать такие вещи, как изменение размера imageView,
     //   установка свойства contentSize для scrollView
     //   и остановка spinner
-    private var image: UIImage? {
+   var image: UIImage? {
         get { return imageView.image }
         set {
             imageView.image = newValue

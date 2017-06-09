@@ -181,7 +181,8 @@ class MentionsTableViewController: UITableViewController {
                 if let ivc = segue.destination as? ImageViewController,
                     let cell = sender as? ImageTableViewCell {
                     
-                    ivc.imageURL = cell.imageUrl
+   //                 ivc.imageURL = cell.imageUrl
+                    ivc.image = cell.tweetImage.image
                     ivc.title = title
                     
                 }
@@ -189,7 +190,6 @@ class MentionsTableViewController: UITableViewController {
                 if let wvc = segue.destination as? WebViewController {
                     if let cell = sender as? UITableViewCell {
                         if let url = cell.textLabel?.text {
-                            
                             wvc.URL = URL(string: url)
                         }
                     }
